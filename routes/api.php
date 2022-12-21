@@ -21,16 +21,28 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
-
+Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
+Route::get('/logout', [AuthController::class,'logout']);
 
-
+Route::get('/book', [BooksController::class,'free']);
 
 Route::middleware(['CheckToken'])->group(function () {
-
 
     Route::get('/books', [BooksController::class,'index']);
 
     Route::get('/books/{code}', [BooksController::class,'show']);
+
+
+    Route::middleware(['isAdmin'])->group(function () {
+
+        Route::put('/books', [BooksController::class,'store']);
+
+        Route::patch('/books', [BooksController::class,'update']);
+
+        Route::delete('/books', [BooksController::class,'destroy']);
+    });
+
+
 
 });

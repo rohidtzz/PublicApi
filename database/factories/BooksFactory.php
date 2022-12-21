@@ -19,10 +19,11 @@ class BooksFactory extends Factory
 
         return [
             'code' => $this->faker->randomNumber(5),
-            'title' => $this->faker->text(),
+            'title' => $this->faker->words(3,true),
             'description' => $this->faker->paragraph(),
             'author' => $this->faker->name(),
             'publisher' => $this->faker->word(),
+            'img' => $this->faker->imageUrl(640, 480, 'animals', true,'cats')
         ];
     }
 }

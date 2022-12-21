@@ -14,6 +14,7 @@ class Books extends Model
         'description',
         'code',
         'author',
-        'publisher'
+        'publisher',
+        'img',
     ];
 }

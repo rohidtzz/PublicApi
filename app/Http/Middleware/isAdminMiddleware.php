@@ -5,11 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-use Auth;
 
 use App\Models\User;
 
-class CheckTokenMiddleware
+class isAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -23,15 +22,16 @@ class CheckTokenMiddleware
 
         $user = User::where('token',$request->token)->first();
 
-        if($request->token == null || !$user){
+        if($request->token == null || !$user || $user->token == 'user'){
 
             $error = [
                 'status' => 'failed',
-                'message' => 'Unauthorized Token'
+                'message' => 'Unauthorized Token/Role'
             ];
 
             return response()->json($error, 401);
         }
+
 
 
         return $next($request);
