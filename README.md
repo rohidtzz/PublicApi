@@ -1,6 +1,7 @@
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Documentation_0"></a>Documentation</h1>
 <h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_PublicApi__1"></a><em>PublicApi</em></h2>
-<p class="has-line-data" data-line-start="4" data-line-end="5"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&amp;logo=laravel&amp;logoColor=white" alt="Laravel"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&amp;logo=postman&amp;logoColor=white" alt="Postman"> <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&amp;logo=php&amp;logoColor=white" alt="PHP"></p>
+
+<center><p class="has-line-data" data-line-start="4" data-line-end="5"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&amp;logo=laravel&amp;logoColor=white" alt="Laravel"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&amp;logo=postman&amp;logoColor=white" alt="Postman"> <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&amp;logo=php&amp;logoColor=white" alt="PHP"></p></center>
 <ul>
 <li class="has-line-data" data-line-start="7" data-line-end="8">Version 1.0</li>
 <li class="has-line-data" data-line-start="8" data-line-end="9">Author Rohidtzz</li>
