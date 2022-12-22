@@ -169,7 +169,7 @@ class BooksController extends Controller
         }
 
         $file = $request->file('img');
-        $nama_file = 'https://hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+        $nama_file = 'https://publicapi.hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
 		// $nama_file = $file->getClientOriginalName();
 		$tujuan_upload = 'img/';
 		$file->move($tujuan_upload,$nama_file);
@@ -238,7 +238,7 @@ class BooksController extends Controller
             ]);
 
             $file = $request->file('img');
-            $nama_file = 'https://hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+            $nama_file = 'https://publicapi.hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
             $tujuan_upload = 'img/';
             $file->move($tujuan_upload,$nama_file);
 
