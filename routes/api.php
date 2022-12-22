@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BorrowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +32,16 @@ Route::middleware(['CheckToken'])->group(function () {
 
     Route::get('/books', [BooksController::class,'index']);
 
-    Route::get('/books/{code}', [BooksController::class,'show']);
+    Route::get('/books/{id}', [BooksController::class,'show']);
+
+    Route::put('/books/borrow', [BorrowController::class,'store']);
 
 
     Route::middleware(['isAdmin'])->group(function () {
 
-        Route::put('/books', [BooksController::class,'store']);
+        Route::post('/books/store', [BooksController::class,'store']);
 
-        Route::patch('/books', [BooksController::class,'update']);
+        Route::post('/books/update', [BooksController::class,'update']);
 
         Route::delete('/books', [BooksController::class,'destroy']);
     });

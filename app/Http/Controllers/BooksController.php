@@ -8,6 +8,10 @@ use App\Models\Books;
 
 use Validator;
 
+use File;
+
+use Illuminate\Support\Facades\Storage;
+
 class BooksController extends Controller
 {
     public function free(){
@@ -113,9 +117,9 @@ class BooksController extends Controller
     }
 
 
-    public function show($code)
+    public function show($id)
     {
-        $books = Books::where('code',$code)->first();
+        $books = Books::where('id',$id)->first();
 
         if(!$books){
             return response()->json([
@@ -152,7 +156,8 @@ class BooksController extends Controller
             'description' => 'required | String',
             'author' => 'required | String',
             'publisher' => 'required | String',
-            'img' => 'required'
+            'img' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
+            // 'img' => 'required'
         ]);
 
         if($Validator->fails()){
@@ -163,6 +168,12 @@ class BooksController extends Controller
             ],402);
         }
 
+        $file = $request->file('img');
+        $nama_file = 'https://hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+		// $nama_file = $file->getClientOriginalName();
+		$tujuan_upload = 'img/';
+		$file->move($tujuan_upload,$nama_file);
+
 
         $books = Books::create([
             'code' => $request->code,
@@ -170,7 +181,7 @@ class BooksController extends Controller
             'description' => $request->description,
             'author' => $request->author,
             'publisher' => $request->publisher,
-            'img' => $request->img
+            'img' => $nama_file
         ]);
 
 
@@ -201,7 +212,6 @@ class BooksController extends Controller
             'description' => 'required | String',
             'author' => 'required | String',
             'publisher' => 'required | String',
-            'img' => 'required'
         ]);
 
         if($Validator->fails()){
@@ -212,23 +222,53 @@ class BooksController extends Controller
             ],402);
         }
 
-        $books = Books::where('code',$request->code)->first();
+        $code = Books::where('code',$request->code)->first();
 
-        if(!$books){
+        if(!$code){
             return response()->json([
                 'status' => "error",
                 'message' => "code invalid"
             ],402);
         }
 
-        $books = Books::where('code',$request-> code)->update([
-            'code' => $request->code,
-            'title' => $request->title,
-            'description' => $request->description,
-            'author' => $request->author,
-            'publisher' => $request->publisher,
-            'img' => $request->img
-        ]);
+        if($request->hasFile('img')){
+
+            $Validator = Validator::make($request->all(),[
+                'img' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
+            ]);
+
+            $file = $request->file('img');
+            $nama_file = 'https://hidtzz.my.id/img/'.round(microtime(true) * 1000).'-'.str_replace(' ','-',$file->getClientOriginalName());
+            $tujuan_upload = 'img/';
+            $file->move($tujuan_upload,$nama_file);
+
+            $img = Books::where('code',$request->code)->first()->img;
+
+
+            if(File::exists(public_path('img/'.$img))){
+                File::delete(public_path('img/'.$img));
+            }
+
+            $books = Books::where('code',$request->code)->update([
+                'code' => $request->code,
+                'title' => $request->title,
+                'description' => $request->description,
+                'author' => $request->author,
+                'publisher' => $request->publisher,
+                'img' => $nama_file
+            ]);
+
+        } else {
+
+            $books = Books::where('code',$request->code)->update([
+                'code' => $request->code,
+                'title' => $request->title,
+                'description' => $request->description,
+                'author' => $request->author,
+                'publisher' => $request->publisher,
+            ]);
+
+        }
 
         if(!$books){
             return response()->json([
@@ -267,6 +307,12 @@ class BooksController extends Controller
             ],402);
         }
 
+        $img = Books::where('code',$request->code)->first()->img;
+
+        if(File::exists(public_path('img/'.$img))){
+            File::delete(public_path('img/'.$img));
+        }
+
         $books = Books::where('code',$request->code)->delete();
 
         if(!$books){
@@ -275,6 +321,8 @@ class BooksController extends Controller
                 'message' => "invalid delete"
             ],402);
         }
+
+
 
         return response()->json([
             'status' => "success",
