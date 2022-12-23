@@ -132,9 +132,9 @@ class BooksController extends Controller
     }
 
 
-    public function show($id)
+    public function show($code)
     {
-        $books = Books::where('id',$id)->first();
+        $books = Books::where('code',$code)->first();
 
         if(!$books){
             return response()->json([

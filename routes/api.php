@@ -32,7 +32,7 @@ Route::middleware(['CheckToken'])->group(function () {
 
     Route::get('/books', [BooksController::class,'index']);
 
-    Route::get('/books/{id}', [BooksController::class,'show']);
+    Route::get('/books/{code}', [BooksController::class,'show']);
 
     Route::put('/books/borrow', [BorrowController::class,'store']);
 
