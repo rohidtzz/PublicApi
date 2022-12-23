@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\BooksController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\api\BooksController;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\BorrowController;
 
 /*
 |--------------------------------------------------------------------------
