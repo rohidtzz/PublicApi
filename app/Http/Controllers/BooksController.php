@@ -69,7 +69,7 @@ class BooksController extends Controller
             ]
         ]);
         $responseBody = json_decode($response->getBody());
-        return redirect()->back()->with(['success'=>$responseBody]);
+        return view('books.create',compact($responseBody));
 
     }
 
