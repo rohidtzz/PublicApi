@@ -10,30 +10,43 @@ use Validator;
 
 use File;
 
+use GuzzleHttp\Client;
+
 use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
     public function free(){
 
-        // $apiKey= '';
 
-        // $data =[
-        //     'username' => 'asdasdasd',
-        //     'password' => 'asdasd'
+        // $client = new Client();
+        // $url = "https://publicapi.hidtzz.my.id/api/books";
+
+        // $params = [
+        //     'token'=> '$2y$10$DyaVVpsMLDe.9XLsj9V8hOekv72K0hHtncVygQSMEcpT2OpQwldVy'
         // ];
+
+        // $headers = [
+        //     'token'=> '$2y$10$8TmJk0FL31QZWSCJ93DeBeN3hEYYRfjgzzcpQJ10ZDZLClAhW8qvK'
+        // ];
+
+        // $response = $client->request('GET', $url, [
+        //     'json' => $params,
+        // ]);
+
+        // $responseBody = json_decode($response->getBody());
+        // dd($responseBody);
+
+
+
+        // $apiKey= '$2y$10$8TmJk0FL31QZWSCJ93DeBeN3hEYYRfjgzzcpQJ10ZDZLClAhW8qvK';
 
         // $curl = curl_init();
 
         // curl_setopt_array($curl, [
         //     CURLOPT_FRESH_CONNECT  => true,
-        //     CURLOPT_URL            => 'https://publicapi.hidtzz.my.id/api/register',
+        //     CURLOPT_URL            => 'https://publicapi.hidtzz.my.id/api/books?token='.$apiKey,
         //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_HEADER         => false,
-        //     CURLOPT_HTTPHEADER     => ['Authorization:'.$apiKey],
-        //     CURLOPT_FAILONERROR    => false,
-        //     CURLOPT_POST           => true,
-        //     CURLOPT_POSTFIELDS     => http_build_query($data),
         //     CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
         // ]);
 
@@ -43,6 +56,8 @@ class BooksController extends Controller
         // curl_close($curl);
 
         // echo empty($error) ? $response : $error;
+
+
 
         $books = Books::all()->take(10);
 
