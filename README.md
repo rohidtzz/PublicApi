@@ -570,7 +570,7 @@ return $responseBody;
     <span class="hljs-string">'Authorization:'</span>. <span class="hljs-variable">$token</span>,
 ];
 
-curl_<span class="hljs-built_in">setopt</span>(<span class="hljs-variable">$curl</span>, CURLOPT_URL, <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/store?token='</span>.<span class="hljs-variable">$token</span>);
+curl_<span class="hljs-built_in">setopt</span>(<span class="hljs-variable">$curl</span>, CURLOPT_URL, <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/store'</span>);
 curl_<span class="hljs-built_in">setopt</span>(<span class="hljs-variable">$curl</span>, CURLOPT_CUSTOMREQUEST, <span class="hljs-string">"POST"</span>);
 curl_<span class="hljs-built_in">setopt</span>(<span class="hljs-variable">$curl</span>, CURLOPT_POST, <span class="hljs-number">1</span>);
 curl_<span class="hljs-built_in">setopt</span>(<span class="hljs-variable">$curl</span>, CURLOPT_POSTFIELDS, <span class="hljs-variable">$data</span>);
