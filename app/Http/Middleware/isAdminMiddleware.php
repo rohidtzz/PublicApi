@@ -20,9 +20,9 @@ class isAdminMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        $user = User::where('token',$request->token)->first();
+        $user = User::where('token',$request->header('Authorization'))->first();
 
-        if($request->token == null || !$user || $user->token == 'user'){
+        if($request->header('Authorization') == null || !$user || $user->token == 'user'){
 
             $error = [
                 'status' => 'failed',

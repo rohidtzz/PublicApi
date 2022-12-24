@@ -98,14 +98,14 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
 
-        if($request->token == null){
+        if($request->header('Authorization') == null){
             return response()->json([
                 'status' => "error",
                 'message' => "code invalid"
             ],402);
         }
 
-        $users = User::where('token',$request->token)->update([
+        $users = User::where('token',$request->header('Authorization'))->update([
             'token' => null
         ]);
 

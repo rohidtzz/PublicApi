@@ -39,7 +39,7 @@ class BooksController extends Controller
         $image_mime =$file_img->getmimetype();
         $image_org  =$file_img->getClientOriginalName();
 
-        $response = $client->request('POST', 'https://publicapi.hidtzz.my.id/api/books/store?token='.$token, [
+        $response = $client->request('POST', 'https://publicapi.hidtzz.my.id/api/books/store', [
             'multipart' => [
                 [
                     'name'     => 'img',
@@ -69,6 +69,9 @@ class BooksController extends Controller
                 ]
                 ],
                 'http_errors'=>false,
+                'headers' => [
+                    'Authorization' => $token
+                ]
         ]);
 
         $responseBody = json_decode($response->getBody());

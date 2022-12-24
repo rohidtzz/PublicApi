@@ -35,7 +35,7 @@ class BorrowController extends Controller
             ],402);
         }
 
-        $id = User::where('token',$request->token)->first()->id;
+        $id = User::where('token',$request->header('Authorization'))->first()->id;
 
         $bookId = Books::find($request->book_id);
 

@@ -222,10 +222,10 @@ class BooksController extends Controller
 
         $Validator = Validator::make($request->all(),[
             'code' => 'required | integer',
-            'title' => 'required | String',
-            'description' => 'required | String',
-            'author' => 'required | String',
-            'publisher' => 'required | String',
+            'title' => 'String',
+            'description' => 'String',
+            'author' => 'String',
+            'publisher' => 'String',
         ]);
 
         if($Validator->fails()){
@@ -248,7 +248,7 @@ class BooksController extends Controller
         if($request->hasFile('img')){
 
             $Validator = Validator::make($request->all(),[
-                'img' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
+                'img' => 'file|image|mimes:jpeg,png,jpg|max:2048'
             ]);
 
             $file = $request->file('img');
@@ -263,24 +263,15 @@ class BooksController extends Controller
                 File::delete(public_path('img/'.$img));
             }
 
-            $books = Books::where('code',$request->code)->update([
-                'code' => $request->code,
-                'title' => $request->title,
-                'description' => $request->description,
-                'author' => $request->author,
-                'publisher' => $request->publisher,
-                'img' => $nama_file
-            ]);
+            $books = Books::where('code',$request->code)->update(
+                $request->all()
+            );
 
         } else {
 
-            $books = Books::where('code',$request->code)->update([
-                'code' => $request->code,
-                'title' => $request->title,
-                'description' => $request->description,
-                'author' => $request->author,
-                'publisher' => $request->publisher,
-            ]);
+            $books = Books::where('code',$request->code)->update(
+                $request->all()
+            );
 
         }
 

@@ -21,9 +21,9 @@ class CheckTokenMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        $user = User::where('token',$request->token)->first();
+        $user = User::where('token',$request->header('Authorization'))->first();
 
-        if($request->token == null || !$user){
+        if($request->header('Authorization') == null || !$user){
 
             $error = [
                 'status' => 'failed',
