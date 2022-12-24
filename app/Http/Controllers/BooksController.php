@@ -76,6 +76,7 @@ class BooksController extends Controller
 
         $responseBody = json_decode($response->getBody());
 
+        return $responseBody;
 
     }
 
