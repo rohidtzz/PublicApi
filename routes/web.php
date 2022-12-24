@@ -19,5 +19,5 @@ Route::get('/', function () {
     return view('index');
 });
 
-route::get('/books/create', [BooksController::class,'create']);
-route::post('/books/store', [BooksController::class,'store']);
+// route::get('/books/create', [BooksController::class,'create']);
+// route::post('/books/store', [BooksController::class,'store']);
