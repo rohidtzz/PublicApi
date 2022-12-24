@@ -10,6 +10,8 @@ use Validator;
 
 use File;
 
+use Session;
+
 use GuzzleHttp\Client;
 
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +38,6 @@ class BooksController extends Controller
         $image_path =$file_img->getpathname();
         $image_mime =$file_img->getmimetype();
         $image_org  =$file_img->getClientOriginalName();
-
 
         $response = $client->request('POST', 'https://publicapi.hidtzz.my.id/api/books/store?token='.$token, [
             'multipart' => [
@@ -66,11 +67,12 @@ class BooksController extends Controller
                     'name' => 'publisher',
                     'contents' => $request->publisher
                 ]
-            ]
+                ],
+                'http_errors'=>false,
         ]);
+
         $responseBody = json_decode($response->getBody());
-        // return view('books.create',compact($responseBody));
-        dd($responseBody);
+
 
     }
 

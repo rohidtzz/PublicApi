@@ -1,6 +1,6 @@
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Documentation_0"></a>Documentation</h1>
 <h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_PublicApi__1"></a><em>PublicApi</em></h2>
-<center><p class="has-line-data" data-line-start="4" data-line-end="5"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&amp;logo=laravel&amp;logoColor=white" alt="Laravel"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&amp;logo=postman&amp;logoColor=white" alt="Postman"> <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&amp;logo=php&amp;logoColor=white" alt="PHP"></p> </center>
+<p class="has-line-data" data-line-start="4" data-line-end="5"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&amp;logo=laravel&amp;logoColor=white" alt="Laravel"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&amp;logo=postman&amp;logoColor=white" alt="Postman"> <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&amp;logo=php&amp;logoColor=white" alt="PHP"></p>
 <ul>
 <li class="has-line-data" data-line-start="7" data-line-end="8">Version 1.0</li>
 <li class="has-line-data" data-line-start="8" data-line-end="9">Author Rohidtzz</li>
@@ -456,62 +456,65 @@ curl_close(<span class="hljs-variable">$curl</span>);
 </tbody>
 </table>
 <h4 class="code-line" data-line-start=319 data-line-end=320 ><a id="Contoh_Request_319"></a>Contoh Request</h4>
-<p class="has-line-data" data-line-start="320" data-line-end="321">PHP</p>
-<pre><code class="has-line-data" data-line-start="322" data-line-end="362" class="language-sh"><span class="hljs-variable">$token</span> = <span class="hljs-string">'token_anda'</span>;
+<p class="has-line-data" data-line-start="320" data-line-end="321">LARAVEL GUZZLE</p>
+<pre><code class="has-line-data" data-line-start="322" data-line-end="365" class="language-sh"><span class="hljs-variable">$client</span> = new Client();
+<span class="hljs-variable">$token</span> = <span class="hljs-string">"token anda"</span>;
 
-<span class="hljs-variable">$cFile</span> = curl_file_create(<span class="hljs-variable">$file</span>);
-<span class="hljs-variable">$img</span> = array(<span class="hljs-string">'img'</span>=&gt; <span class="hljs-variable">$cFile</span>);
+<span class="hljs-variable">$file_img</span> = <span class="hljs-variable">$request</span>-&gt;file(<span class="hljs-string">'img'</span>);
+<span class="hljs-variable">$image_path</span> =<span class="hljs-variable">$file_img</span>-&gt;getpathname();
+<span class="hljs-variable">$image_mime</span> =<span class="hljs-variable">$file_img</span>-&gt;getmimetype();
+<span class="hljs-variable">$image_org</span>  =<span class="hljs-variable">$file_img</span>-&gt;getClientOriginalName();
 
-<span class="hljs-variable">$name</span> = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">'img'</span>][<span class="hljs-string">'name'</span>];
-
-
-
-
-<span class="hljs-variable">$curl</span> = curl_init();
-
-<span class="hljs-variable">$args</span>[<span class="hljs-string">'file'</span>] = curl_file_create(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">'img'</span>][<span class="hljs-string">'tmp_name'</span>],<span class="hljs-string">'image/png'</span>,<span class="hljs-variable">$name</span>);
-
-<span class="hljs-variable">$data</span> = [
-        <span class="hljs-string">'code'</span> =&gt; <span class="hljs-string">'code buku'</span>,
-        <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'title buku'</span>,
-        <span class="hljs-string">'description'</span> =&gt; <span class="hljs-string">'description buku'</span>,
-        <span class="hljs-string">'author'</span> =&gt; <span class="hljs-string">'author buku'</span>,
-        <span class="hljs-string">'publisher'</span> =&gt; <span class="hljs-string">'publusher buku'</span>,
-        <span class="hljs-string">'img'</span> =&gt; <span class="hljs-variable">$args</span>[<span class="hljs-string">'file'</span>]
-];
-
-curl_<span class="hljs-built_in">setopt</span>_array(<span class="hljs-variable">$curl</span>, [
-    CURLOPT_FRESH_CONNECT  =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_URL            =&gt; <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/store'</span>.http_build_query(<span class="hljs-variable">$token</span>),
-    CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_POST           =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_POSTFIELDS     =&gt; http_build_query(<span class="hljs-variable">$data</span>),
-    CURLOPT_IPRESOLVE      =&gt; CURL_IPRESOLVE_V4
+<span class="hljs-variable">$response</span> = <span class="hljs-variable">$client</span>-&gt;request(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/store?token='</span>.<span class="hljs-variable">$token</span>, [
+    <span class="hljs-string">'multipart'</span> =&gt; [
+        [
+            <span class="hljs-string">'name'</span>     =&gt; <span class="hljs-string">'img'</span>,
+            <span class="hljs-string">'filename'</span> =&gt; <span class="hljs-variable">$image_org</span>,
+            <span class="hljs-string">'Mime-Type'</span>=&gt; <span class="hljs-variable">$image_mime</span>,
+            <span class="hljs-string">'contents'</span> =&gt; fopen( <span class="hljs-variable">$image_path</span>, <span class="hljs-string">'r'</span> ),
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'code'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;code
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'title'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;title
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'description'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;description
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'author'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;author
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'publisher'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;publisher
+        ]
+        ],
+        <span class="hljs-string">'http_errors'</span>=&gt;<span class="hljs-literal">false</span>,
 ]);
 
-<span class="hljs-variable">$response</span> = curl_<span class="hljs-built_in">exec</span>(<span class="hljs-variable">$curl</span>);
-<span class="hljs-variable">$error</span> = curl_error(<span class="hljs-variable">$curl</span>);
-
-curl_close(<span class="hljs-variable">$curl</span>);
-
-<span class="hljs-built_in">echo</span> empty(<span class="hljs-variable">$error</span>) ? <span class="hljs-variable">$response</span> : <span class="hljs-variable">$error</span>;
+<span class="hljs-variable">$responseBody</span> = json_decode(<span class="hljs-variable">$response</span>-&gt;getBody());
 
 </code></pre>
-<h3 class="code-line" data-line-start=362 data-line-end=363 ><a id="Response_362"></a>Response</h3>
-<p class="has-line-data" data-line-start="364" data-line-end="365">Response Sukses</p>
-<pre><code class="has-line-data" data-line-start="367" data-line-end="372" class="language-sh">{
+<h3 class="code-line" data-line-start=365 data-line-end=366 ><a id="Response_365"></a>Response</h3>
+<p class="has-line-data" data-line-start="367" data-line-end="368">Response Sukses</p>
+<pre><code class="has-line-data" data-line-start="370" data-line-end="375" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"success"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"data stored"</span>
 }
 </code></pre>
-<p class="has-line-data" data-line-start="373" data-line-end="374">Response Gagal</p>
-<pre><code class="has-line-data" data-line-start="376" data-line-end="381" class="language-sh">{
+<p class="has-line-data" data-line-start="376" data-line-end="377">Response Gagal</p>
+<pre><code class="has-line-data" data-line-start="379" data-line-end="384" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"failed"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"invalid"</span>
 }
 </code></pre>
-<h3 class="code-line" data-line-start=382 data-line-end=383 ><a id="Update_Books_382"></a>Update Books</h3>
-<h4 class="code-line" data-line-start=384 data-line-end=385 ><a id="EndPoint_384"></a>EndPoint</h4>
+<h3 class="code-line" data-line-start=385 data-line-end=386 ><a id="Update_Books_385"></a>Update Books</h3>
+<h4 class="code-line" data-line-start=387 data-line-end=388 ><a id="EndPoint_387"></a>EndPoint</h4>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
@@ -526,7 +529,7 @@ curl_close(<span class="hljs-variable">$curl</span>);
 </tr>
 </tbody>
 </table>
-<h4 class="code-line" data-line-start=389 data-line-end=390 ><a id="Body_389"></a>Body</h4>
+<h4 class="code-line" data-line-start=392 data-line-end=393 ><a id="Body_392"></a>Body</h4>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
@@ -589,63 +592,66 @@ curl_close(<span class="hljs-variable">$curl</span>);
 </tr>
 </tbody>
 </table>
-<h4 class="code-line" data-line-start=400 data-line-end=401 ><a id="Contoh_Request_400"></a>Contoh Request</h4>
-<p class="has-line-data" data-line-start="401" data-line-end="402">PHP</p>
-<pre><code class="has-line-data" data-line-start="403" data-line-end="443" class="language-sh"><span class="hljs-variable">$token</span> = <span class="hljs-string">'token_anda'</span>;
+<h4 class="code-line" data-line-start=403 data-line-end=404 ><a id="Contoh_Request_403"></a>Contoh Request</h4>
+<p class="has-line-data" data-line-start="404" data-line-end="405">LARAVEL GUZZLE</p>
+<pre><code class="has-line-data" data-line-start="406" data-line-end="449" class="language-sh"><span class="hljs-variable">$client</span> = new Client();
+<span class="hljs-variable">$token</span> = <span class="hljs-string">"token anda"</span>;
 
-<span class="hljs-variable">$cFile</span> = curl_file_create(<span class="hljs-variable">$file</span>);
-<span class="hljs-variable">$img</span> = array(<span class="hljs-string">'img'</span>=&gt; <span class="hljs-variable">$cFile</span>);
+<span class="hljs-variable">$file_img</span> = <span class="hljs-variable">$request</span>-&gt;file(<span class="hljs-string">'img'</span>);
+<span class="hljs-variable">$image_path</span> =<span class="hljs-variable">$file_img</span>-&gt;getpathname();
+<span class="hljs-variable">$image_mime</span> =<span class="hljs-variable">$file_img</span>-&gt;getmimetype();
+<span class="hljs-variable">$image_org</span>  =<span class="hljs-variable">$file_img</span>-&gt;getClientOriginalName();
 
-<span class="hljs-variable">$name</span> = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">'img'</span>][<span class="hljs-string">'name'</span>];
-
-
-
-
-<span class="hljs-variable">$curl</span> = curl_init();
-
-<span class="hljs-variable">$args</span>[<span class="hljs-string">'file'</span>] = curl_file_create(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">'img'</span>][<span class="hljs-string">'tmp_name'</span>],<span class="hljs-string">'image/png'</span>,<span class="hljs-variable">$name</span>);
-
-<span class="hljs-variable">$data</span> = [
-        <span class="hljs-string">'code'</span> =&gt; <span class="hljs-string">'code buku'</span>,
-        <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'title buku'</span>,
-        <span class="hljs-string">'description'</span> =&gt; <span class="hljs-string">'description buku'</span>,
-        <span class="hljs-string">'author'</span> =&gt; <span class="hljs-string">'author buku'</span>,
-        <span class="hljs-string">'publisher'</span> =&gt; <span class="hljs-string">'publusher buku'</span>,
-        <span class="hljs-string">'img'</span> =&gt; <span class="hljs-variable">$args</span>[<span class="hljs-string">'file'</span>]
-];
-
-curl_<span class="hljs-built_in">setopt</span>_array(<span class="hljs-variable">$curl</span>, [
-    CURLOPT_FRESH_CONNECT  =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_URL            =&gt; <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/update'</span>.http_build_query(<span class="hljs-variable">$token</span>),
-    CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_POST           =&gt; <span class="hljs-literal">true</span>,
-    CURLOPT_POSTFIELDS     =&gt; http_build_query(<span class="hljs-variable">$data</span>),
-    CURLOPT_IPRESOLVE      =&gt; CURL_IPRESOLVE_V4
+<span class="hljs-variable">$response</span> = <span class="hljs-variable">$client</span>-&gt;request(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'https://publicapi.hidtzz.my.id/api/books/update?token='</span>.<span class="hljs-variable">$token</span>, [
+    <span class="hljs-string">'multipart'</span> =&gt; [
+        [
+            <span class="hljs-string">'name'</span>     =&gt; <span class="hljs-string">'img'</span>,
+            <span class="hljs-string">'filename'</span> =&gt; <span class="hljs-variable">$image_org</span>,
+            <span class="hljs-string">'Mime-Type'</span>=&gt; <span class="hljs-variable">$image_mime</span>,
+            <span class="hljs-string">'contents'</span> =&gt; fopen( <span class="hljs-variable">$image_path</span>, <span class="hljs-string">'r'</span> ),
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'code'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;code
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'title'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;title
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'description'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;description
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'author'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;author
+        ],
+        [
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'publisher'</span>,
+            <span class="hljs-string">'contents'</span> =&gt; <span class="hljs-variable">$request</span>-&gt;publisher
+        ]
+        ],
+        <span class="hljs-string">'http_errors'</span>=&gt;<span class="hljs-literal">false</span>,
 ]);
 
-<span class="hljs-variable">$response</span> = curl_<span class="hljs-built_in">exec</span>(<span class="hljs-variable">$curl</span>);
-<span class="hljs-variable">$error</span> = curl_error(<span class="hljs-variable">$curl</span>);
-
-curl_close(<span class="hljs-variable">$curl</span>);
-
-<span class="hljs-built_in">echo</span> empty(<span class="hljs-variable">$error</span>) ? <span class="hljs-variable">$response</span> : <span class="hljs-variable">$error</span>;
+<span class="hljs-variable">$responseBody</span> = json_decode(<span class="hljs-variable">$response</span>-&gt;getBody());
 
 </code></pre>
-<h3 class="code-line" data-line-start=443 data-line-end=444 ><a id="Response_443"></a>Response</h3>
-<p class="has-line-data" data-line-start="445" data-line-end="446">Response Sukses</p>
-<pre><code class="has-line-data" data-line-start="448" data-line-end="453" class="language-sh">{
+<h3 class="code-line" data-line-start=449 data-line-end=450 ><a id="Response_449"></a>Response</h3>
+<p class="has-line-data" data-line-start="451" data-line-end="452">Response Sukses</p>
+<pre><code class="has-line-data" data-line-start="454" data-line-end="459" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"success"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"data updated"</span>
 }
 </code></pre>
-<p class="has-line-data" data-line-start="454" data-line-end="455">Response Gagal</p>
-<pre><code class="has-line-data" data-line-start="457" data-line-end="462" class="language-sh">{
+<p class="has-line-data" data-line-start="460" data-line-end="461">Response Gagal</p>
+<pre><code class="has-line-data" data-line-start="463" data-line-end="468" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"failed"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"invalid"</span>
 }
 </code></pre>
-<h3 class="code-line" data-line-start=463 data-line-end=464 ><a id="Delete_Books_463"></a>Delete Books</h3>
-<h4 class="code-line" data-line-start=465 data-line-end=466 ><a id="EndPoint_465"></a>EndPoint</h4>
+<h3 class="code-line" data-line-start=469 data-line-end=470 ><a id="Delete_Books_469"></a>Delete Books</h3>
+<h4 class="code-line" data-line-start=471 data-line-end=472 ><a id="EndPoint_471"></a>EndPoint</h4>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
@@ -660,7 +666,7 @@ curl_close(<span class="hljs-variable">$curl</span>);
 </tr>
 </tbody>
 </table>
-<h4 class="code-line" data-line-start=470 data-line-end=471 ><a id="Body_470"></a>Body</h4>
+<h4 class="code-line" data-line-start=476 data-line-end=477 ><a id="Body_476"></a>Body</h4>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>
@@ -688,9 +694,9 @@ curl_close(<span class="hljs-variable">$curl</span>);
 </tr>
 </tbody>
 </table>
-<h4 class="code-line" data-line-start=476 data-line-end=477 ><a id="Contoh_Request_476"></a>Contoh Request</h4>
-<p class="has-line-data" data-line-start="477" data-line-end="478">PHP</p>
-<pre><code class="has-line-data" data-line-start="479" data-line-end="506" class="language-sh"><span class="hljs-variable">$token</span> = <span class="hljs-string">'token_anda'</span>;
+<h4 class="code-line" data-line-start=482 data-line-end=483 ><a id="Contoh_Request_482"></a>Contoh Request</h4>
+<p class="has-line-data" data-line-start="483" data-line-end="484">PHP</p>
+<pre><code class="has-line-data" data-line-start="485" data-line-end="512" class="language-sh"><span class="hljs-variable">$token</span> = <span class="hljs-string">'token_anda'</span>;
 
 <span class="hljs-variable">$data</span> = [
     <span class="hljs-string">'code'</span> =&gt; <span class="hljs-string">'code_buku'</span>
@@ -717,19 +723,19 @@ curl_close(<span class="hljs-variable">$curl</span>);
 <span class="hljs-built_in">echo</span> empty(<span class="hljs-variable">$error</span>) ? <span class="hljs-variable">$response</span> : <span class="hljs-variable">$error</span>;
 
 </code></pre>
-<h3 class="code-line" data-line-start=507 data-line-end=508 ><a id="Response_507"></a>Response</h3>
-<p class="has-line-data" data-line-start="509" data-line-end="510">Response Sukses</p>
-<pre><code class="has-line-data" data-line-start="512" data-line-end="517" class="language-sh">{
+<h3 class="code-line" data-line-start=513 data-line-end=514 ><a id="Response_513"></a>Response</h3>
+<p class="has-line-data" data-line-start="515" data-line-end="516">Response Sukses</p>
+<pre><code class="has-line-data" data-line-start="518" data-line-end="523" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"success"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"data deleted"</span>
 }
 </code></pre>
-<p class="has-line-data" data-line-start="518" data-line-end="519">Response Gagal</p>
-<pre><code class="has-line-data" data-line-start="521" data-line-end="526" class="language-sh">{
+<p class="has-line-data" data-line-start="524" data-line-end="525">Response Gagal</p>
+<pre><code class="has-line-data" data-line-start="527" data-line-end="532" class="language-sh">{
     <span class="hljs-string">"status"</span>: <span class="hljs-string">"failed"</span>,
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"invalid"</span>
 }
 </code></pre>
-<h2 class="code-line" data-line-start=527 data-line-end=528 ><a id="License_527"></a>License</h2>
-<p class="has-line-data" data-line-start="529" data-line-end="530">MIT</p>
-<p class="has-line-data" data-line-start="531" data-line-end="532"><strong>Free Software, Hell Yeah!</strong></p>
+<h2 class="code-line" data-line-start=533 data-line-end=534 ><a id="License_533"></a>License</h2>
+<p class="has-line-data" data-line-start="535" data-line-end="536">MIT</p>
+<p class="has-line-data" data-line-start="537" data-line-end="538"><strong>Free Software, Hell Yeah!</strong></p>

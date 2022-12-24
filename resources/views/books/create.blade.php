@@ -8,7 +8,10 @@
 </head>
 <body>
 
-{{-- {{ $responseBody }} --}}
+    @if(session()->get('msg'))
+    {{session()->get('msg')}}
+    @endif
+
     <form action="{{ url('books/store') }}"  enctype="multipart/form-data" method="post">
         @csrf
         <input type="text" name="code" placeholder="code">
