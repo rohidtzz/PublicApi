@@ -20,7 +20,7 @@
 </thead>
 <tbody>
 <tr>
-<td>GET</td>
+<td>POST</td>
 <td><a href="https://publicapi.hidtzz.my.id/api/register">https://publicapi.hidtzz.my.id/api/register</a></td>
 </tr>
 </tbody>
